@@ -24,6 +24,7 @@ const server = http.createServer((req, res) => {
       // it is our bus stop
       const parsedBody = Buffer.concat(body).toString();
       const message = parsedBody.split('=')[1];
+      // Blocks code execution until this file is done writing
       fs.writeFileSync('message.txt', message);
     });
     // 302 means redirection
