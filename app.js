@@ -1,21 +1,23 @@
 const http = require('http');
 
-// first arg is request second is response, we can name as we like
-// function reqListener(req, res) {}
-
-// This fn will be executed whenever a request is made to the
-// createServer method returns a server object
 const server = http.createServer((req, res) => {
-  console.log(req.url, req.method, req.headers);
-  // process.exit(); // exits the event loop
-  res.setHeader('Content-Type', 'text/html'); // attaches header to response when passing meta data
+  const url = req.url;
+  if (url === '/') {
+    res.write('<html>');
+    res.write('<head><title>Enter Message</title></head>');
+    res.write(
+      '<body><form action="/message" method="POST"><input type="text" name="message"100/><button type="submit">Send</button></form></body>'
+    );
+    res.write('</html>');
+    return res.end();
+  }
+
+  res.setHeader('Content-Type', 'text/html');
   res.write('<html>');
   res.write('<head><title>My First Page</title></head>');
   res.write('<body><h1>Hello from my Node.js Server!</h1></body>');
   res.write('</html>');
-  res.end(); // signals that response is complete
+  res.end();
 });
 
-// listen method is used to listen to incoming requests
-// takes port number as arg and hostname as second arg
-server.listen(3000); // looping process that keeps on listening to incoming requests
+server.listen(3000);
