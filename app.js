@@ -6,7 +6,14 @@ const http = require('http');
 // This fn will be executed whenever a request is made to the
 // createServer method returns a server object
 const server = http.createServer((req, res) => {
-  console.log(req);
+  console.log(req.url, req.method, req.headers);
+  // process.exit(); // exits the event loop
+  res.setHeader('Content-Type', 'text/html'); // attaches header to response when passing meta data
+  res.write('<html>');
+  res.write('<head><title>My First Page</title></head>');
+  res.write('<body><h1>Hello from my Node.js Server!</h1></body>');
+  res.write('</html>');
+  res.end(); // signals that response is complete
 });
 
 // listen method is used to listen to incoming requests
